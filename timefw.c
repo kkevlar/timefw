@@ -66,7 +66,7 @@ void gimme_timer(struct timeval* start_time)
     gettimeofday(&end_time,0x0);
     wow = timeval_diff(&difference, &end_time, start_time);
 
-    printf("GOON:%ld %ld\n", difference.tv_sec, difference.tv_usec);
+    printf("TIME: (%ld secs) (%ld micros) \n", difference.tv_sec, difference.tv_usec);
 }
 
 void execute_fw()
@@ -89,10 +89,34 @@ int main(int argc, char** argv)
     struct timeval start_time;
 
     chdir("fw");
+
     make_it(3);
     set_timer(&start_time);
     execute_fw();
     gimme_timer(&start_time);
+
+    make_it(1);
+    set_timer(&start_time);
+    execute_fw();
+    gimme_timer(&start_time);
+
+    make_it(2);
+    set_timer(&start_time);
+    execute_fw();
+    gimme_timer(&start_time);
+
+
+    make_it(20000);
+    set_timer(&start_time);
+    execute_fw();
+    gimme_timer(&start_time);
+
+
+    make_it(3797);
+    set_timer(&start_time);
+    execute_fw();
+    gimme_timer(&start_time);
+
     return 0;
 }
 
