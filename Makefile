@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -ansi -pedantic -Wno-variadic-macros -g
+CFLAGS = -Wall -pedantic -Wno-variadic-macros -g
 MAIN = timefw
 OBJS = timefw.o
 

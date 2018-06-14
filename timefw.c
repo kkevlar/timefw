@@ -31,22 +31,42 @@ void make_it(int htsize)
     wait(&status);
 }
 
-void set_timer(void)
+long long timeval_diff(
+    struct timeval *difference,
+    struct timeval *end_time,
+    struct timeval *start_time)
 {
-    struct itimerval v;
-    memset(&v, 0, sizeof(struct itimerval));
+  difference->tv_sec =end_time->tv_sec -start_time->tv_sec ;
+  difference->tv_usec=end_time->tv_usec-start_time->tv_usec;
 
-    v.it_value.tv_usec = 1;
-    setitimer(ITIMER_REAL, &v, NULL);
+  /* Using while instead of if below makes the code slightly more robust. */
+
+  while(difference->tv_usec<0)
+  {
+    difference->tv_usec+=1000000;
+    difference->tv_sec -=1;
+  }
+
+  return 1000000LL*difference->tv_sec+
+                   difference->tv_usec;
+
+} 
+
+void set_timer(struct timeval* start_time)
+{
+    gettimeofday(start_time,0x0);
 }
 
-void gimme_timer(void)
+void gimme_timer(struct timeval* start_time)
 {
-    struct itimerval v;
+    struct timeval end_time;
+    struct timeval difference;
+    long long wow;
 
-    memset(&v, 0, sizeof(struct itimerval));
-    getitimer( ITIMER_REAL, &v);
-    printf("GOON:%ld %ld\n", v.it_value.tv_sec, v.it_value.tv_usec);
+    gettimeofday(&end_time,0x0);
+    wow = timeval_diff(&difference, &end_time, start_time);
+
+    printf("GOON:%ld %ld\n", difference.tv_sec, difference.tv_usec);
 }
 
 void execute_fw()
@@ -66,11 +86,13 @@ void execute_fw()
 
 int main(int argc, char** argv)
 {
+    struct timeval start_time;
+
     chdir("fw");
     make_it(3);
-    set_timer();
+    set_timer(&start_time);
     execute_fw();
-    gimme_timer();
+    gimme_timer(&start_time);
     return 0;
 }
 
