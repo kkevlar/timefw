@@ -114,6 +114,8 @@ int main(int argc, char** argv)
 
     for (i = 0; i < 1000; i++)
     {
+        fprintf(stderr, "ROUND %d\n", i);
+        
         do_it_all(logfile, 1);   
         do_it_all(logfile, 2);
         do_it_all(logfile, 3);   
