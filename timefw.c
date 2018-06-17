@@ -104,7 +104,6 @@ int main(int argc, char** argv)
 {
     int logfile;
     int i;
-    int j;
 
     logfile = open("logfile.txt", 
         O_CREAT | O_TRUNC | O_WRONLY,
@@ -112,55 +111,19 @@ int main(int argc, char** argv)
 
     chdir("fw");
 
-    for (i = 0; i < 1000; i++)
+    for (i = 0; i < 300; i++)
     {
         fprintf(stderr, "ROUND %d\n", i);
         
-        do_it_all(logfile, 1);   
-        do_it_all(logfile, 2);
-        do_it_all(logfile, 3);   
-        do_it_all(logfile, 4);   
-        do_it_all(logfile, 5);   
-        do_it_all(logfile, 6);   
-        do_it_all(logfile, 7);   
-        do_it_all(logfile, 8);   
-        do_it_all(logfile, 9);   
-        do_it_all(logfile, 10);
-
-        for (j = 10; j < 101; j += 3)
-        {
-            do_it_all(logfile, j);
-        }
-
-        do_it_all(logfile, 101);
-        do_it_all(logfile, 102);
-        do_it_all(logfile, 313);
-        do_it_all(logfile, 314);
-        do_it_all(logfile, 503);
-        do_it_all(logfile, 504);
-        do_it_all(logfile, 733);
-        do_it_all(logfile, 734);
+        
         do_it_all(logfile, 1021);
         do_it_all(logfile, 1022);
         do_it_all(logfile, 1024);
-        do_it_all(logfile, 2048);
-        do_it_all(logfile, 2049);
+        
+        do_it_all(logfile, 83160);
+        do_it_all(logfile, 83177);
+        
 
-        for (j = 2050; j < 9199; j += 279)
-        {
-            do_it_all(logfile, j);
-        }
-
-        do_it_all(logfile, 9199);
-        do_it_all(logfile, 9200);
-        do_it_all(logfile, 34157);
-        do_it_all(logfile, 34158);
-        do_it_all(logfile, 78101);
-        do_it_all(logfile, 78102);
-        do_it_all(logfile, 93383);
-        do_it_all(logfile, 93384);
-        do_it_all(logfile, 104729);
-        do_it_all(logfile, 104730);
     }   
 
     return 0;
